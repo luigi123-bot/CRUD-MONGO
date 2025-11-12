@@ -90,22 +90,30 @@ function mostrarProductos(productos) {
     productos.forEach(producto => {
         const card = document.createElement('div');
         card.className = 'producto-card';
+        
+        // Formatear precio con separadores de miles
+        const precioFormateado = new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        }).format(producto.precio);
+        
         card.innerHTML = `
-            <div class="producto-info-main">
-                <div>
-                    <span class="categoria">${producto.categoria}</span>
-                    <h3>${producto.nombre}</h3>
+            <div class="producto-header">
+                <span class="categoria">${producto.categoria}</span>
+            </div>
+            <div class="producto-content">
+                <h3 class="producto-titulo">${producto.nombre}</h3>
+                <p class="producto-descripcion">${producto.descripcion}</p>
+            </div>
+            <div class="producto-info">
+                <div class="info-item precio">
+                    <span class="info-label">PRECIO</span>
+                    <span class="info-value">${precioFormateado}</span>
                 </div>
-                <p class="descripcion">${producto.descripcion}</p>
-                <div class="producto-details">
-                    <div class="detail-item">
-                        <span class="detail-label">Precio</span>
-                        <span class="detail-value">$${producto.precio.toFixed(2)}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Stock</span>
-                        <span class="detail-value">${producto.stock}</span>
-                    </div>
+                <div class="info-item stock">
+                    <span class="info-label">STOCK</span>
+                    <span class="info-value">${producto.stock} unidades</span>
                 </div>
             </div>
             <div class="producto-actions">
